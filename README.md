@@ -5,6 +5,6 @@ You can replace this bookmark with a HowManyTimes redirect URL to that same page
 to question its value before visiting.
 
 #Future TODO
-XSS filter domain names
-Allow custom question (be sure to XSS filter)
-Allow randomness where the question shows 1 out of x times
+- XSS filter domain names
+- Allow custom question (be sure to XSS filter)
+- Allow randomness where the question shows 1 out of x times
