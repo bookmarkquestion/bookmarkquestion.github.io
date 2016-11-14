@@ -8,3 +8,6 @@ to question its value before visiting.
 - XSS filter domain names
 - Allow custom question (be sure to XSS filter)
 - Allow randomness where the question shows 1 out of x times
+
+#Technical notes
+- This is an experiment in creating a maintainable single page app without using a javascript framework. 
