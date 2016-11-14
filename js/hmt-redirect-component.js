@@ -9,7 +9,7 @@ var HmtRedirectComponent = function (componentElement, urlService, window) {
     var urlSpan = componentElement.querySelector('.urlSpan');
 
     if (url) {
-        componentElement.style.display = 'block';//Wanted display='initial' but that didn't work in IE11
+        componentElement.style.display = 'block'; //Wanted display='initial' but that didn't work in IE11
         var domain = urlService.extractDomain(url);
         urlSpan.innerHTML = domain;
         visitButton.innerHTML = 'Visit ' + domain;
