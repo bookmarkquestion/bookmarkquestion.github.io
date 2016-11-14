@@ -3,14 +3,9 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
-        .container{
+        .container {
             max-width: 600px;
         }
-        /*@media only screen and (min-width: 768px) {*/
-            /*.sameHeight1 .panel {*/
-                /*min-height: 18em;*/
-            /*}*/
-        /*}*/
     </style>
     <script>
         var HmtUrlService = function () {
@@ -71,30 +66,46 @@
             }
         };
 
-        var HmtNewLinkComponent = function (componentElement, window) {
+        var HmtNewLinkComponent = function (componentElement, urlService, window) {
             function createRedirectUrl(toUrl) {
                 return window.location.href.split('?')[0]
                         + '?url=' + encodeURIComponent(toUrl);
             }
 
+            var queryParams = urlService.getQueryParams(window.document.location.search);
+            var url = queryParams['url'];
             var urlInput = componentElement.querySelector('input.input-url');
-            var linkDisplayElement = componentElement.querySelector('input.output-url');
+//            var linkDisplayElement = componentElement.querySelector('input.output-url');
 
-            urlInput.addEventListener('keyup', function () {
-                linkDisplayElement.value = createRedirectUrl(urlInput.value);
-            });
+//            function render() {
+//                linkDisplayElement.value = createRedirectUrl(urlInput.value);
+//            }
 
-            //Handle mouse based pasting which is not caught by the keyup event
-            urlInput.addEventListener('paste', function () {
-                setTimeout(function () {
-                    linkDisplayElement.value = createRedirectUrl(urlInput.value);
-                }, 1);
-            });
+            function navigateToPreviewPage() {
+                window.location.replace(createRedirectUrl(urlInput.value));
+            }
 
-            //Select all when the link output box is clicked to make copying easier
-            linkDisplayElement.addEventListener('click', function () {
-                this.select();
-            });
+//            if (url) {
+//                urlInput.value = url;
+//                render();
+//            }
+
+//            urlInput.addEventListener('keyup', render);
+
+//            //Handle mouse based pasting which is not caught by the keyup event
+//            urlInput.addEventListener('paste', function () {
+//                setTimeout(render, 1);
+//            });
+
+//            //Select all when the link output box is clicked to make copying easier
+//            linkDisplayElement.addEventListener('click', function () {
+//                this.select();
+//            });
+
+//            componentElement.querySelector('button.preview-button')
+//                    .addEventListener('click', navigateToPreviewPage);
+            componentElement.querySelector('form')
+                    .addEventListener('submit', navigateToPreviewPage);
         }
     </script>
 </head>
@@ -103,9 +114,9 @@
 
 <div class="container">
     <div class="row">
-        <div id="redirectComponent" class="text-center col-sm-12" style="display: none">
+        <div id="redirectComponent" class="col-sm-12" style="display: none">
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading text-center">
                     <h2>
                         How many times has viewing
                         <span class="urlSpan"></span>
@@ -123,20 +134,8 @@
             </div>
         </div>
     </div>
-    <div class="row sameHeight1" id="createLinkComponent">
-        <!--<div class="col-sm-12 flex-extend-parent">-->
-            <!--<div class="panel panel-default">-->
-                <!--<div class="panel-heading">How does HowManyTimes work?</div>-->
-                <!--<div class="panel-body">-->
-
-
-                    <!--&lt;!&ndash;<p>&ndash;&gt;-->
-                        <!--&lt;!&ndash;Use the form on the right to try it now.&ndash;&gt;-->
-                    <!--&lt;!&ndash;</p>&ndash;&gt;-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <div class="col-sm-12">
+    <div class="row">
+        <div id="createLinkComponent" class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Create a new question-asking redirect link</div>
                 <div class="panel-body">
@@ -147,20 +146,25 @@
                     <p>
                         Lets say you spend much of your time browsing /r/reallifedoodles and you have a
                         bookmark to this page.
-                        You can replace this bookmark with a HowManyTimes bookmark to that same page to be reminded to
+                        You can replace this bookmark with a HowManyTimes redirect URL to that same page to be reminded
+                        to
                         question its value before visiting.
                     </p>
-                    <div class="form-group">
-                        <label for="hmtNewLinkInput">Paste the URL here</label>
-                        <input type="url" class="form-control input-url" id="hmtNewLinkInput"
-                               aria-describedby="emailHelp"
-                               placeholder="https://something.com/something">
-                        <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
-                    </div>
-                    <div class="form-group">
-                        <label for="hmtNewLinkOutput">Bookmark this URL</label>
-                        <input type="text" readonly class="form-control output-url" id="hmtNewLinkOutput">
-                    </div>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="hmtNewLinkInput">Paste the URL here</label>
+
+                            <div class="input-group">
+                                <input type="url" class="form-control input-url" id="hmtNewLinkInput"
+                                       aria-describedby="emailHelp"
+                                       placeholder="https://something.com/something">                          <span
+                                    class="input-group-btn">
+                            <button type="submit" class="preview-button btn btn-primary">Go</button>
+                          </span>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -175,6 +179,7 @@
     );
     var hmtNewLinkComponent = new HmtNewLinkComponent(
             document.getElementById('createLinkComponent'),
+            htmUrlService,
             window
     );
 </script>
