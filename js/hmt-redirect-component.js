@@ -26,15 +26,13 @@ var HmtRedirectComponent = function (componentElement, urlService, window) {
     var cancelButton = componentElement.querySelector('button.cancel-button');
     var messageSpan = componentElement.querySelector('span.message-span');
 
-
-    if (window.localStorage.getItem('usedSinceNew' + url) === null) {
-        alert('hi');
+    if (window.localStorage.getItem('usedSinceNew' + url) == 0) {
+        componentElement.querySelector('.bookmark-now-alert').style.display = 'block';
     }
-    window.localStorage.setItem('usedSinceNew' + url, true);
+    window.localStorage.setItem('usedSinceNew' + url, 1);
 
     if (interval > 1) {
         var count = parseInt(window.localStorage.getItem(url));
-        console.log(count);
         if (count < interval - 1) {
             window.localStorage.setItem(url, count + 1);
             window.location.href = url;

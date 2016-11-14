@@ -52,7 +52,7 @@ var HmtNewLinkComponent = function (componentElement, urlService, window) {
         window.localStorage.setItem(urlInput.value, intervalSelect.value);
 
         //Ensure we can tell if the link has been used yet
-        window.localStorage.setItem('usedSinceNew' + urlInput.value, false);
+        window.localStorage.setItem('usedSinceNew' + urlInput.value, 0);
 
         window.location.href = createRedirectUrl(
             urlInput.value,
