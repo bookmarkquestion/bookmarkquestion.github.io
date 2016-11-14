@@ -3,93 +3,10 @@
 <head>
     <title>HMT</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <style>
-        .container {
-            max-width: 600px;
-            margin-top: 1em;
-            margin-bottom: 1em;
-        }
-    </style>
-    <script>
-        var HmtUrlService = function () {
-            this.getQueryParams = function (url) {
-                var qs = url.split('+').join(' ');
-
-                var params = {},
-                        tokens,
-                        re = /[?&]?([^=]+)=([^&]*)/g;
-
-                while (tokens = re.exec(qs)) {
-                    params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-                }
-
-                return params;
-            };
-
-            this.extractDomain = function (url) {
-                var domain;
-                //find & remove protocol (http, ftp, etc.) and get domain
-                if (url.indexOf("://") > -1) {
-                    domain = url.split('/')[2];
-                }
-                else {
-                    domain = url.split('/')[0];
-                }
-
-                //find & remove port number
-                domain = domain.split(':')[0];
-
-                return domain;
-            }
-        };
-        var HmtRedirectComponent = function (componentElement, urlService, window) {
-            componentElement.style.display = 'none';
-
-            var queryParams = urlService.getQueryParams(window.document.location.search);
-            var url = queryParams['url'];
-
-            var visitButton = componentElement.querySelector('.visit-button');
-            var cancelButton = componentElement.querySelector('.cancel-button');
-            var urlSpan = componentElement.querySelector('.urlSpan');
-
-            if (url) {
-                componentElement.style.display = 'initial';
-                var domain = urlService.extractDomain(url);
-                urlSpan.innerHTML = domain;
-                visitButton.innerHTML = 'Visit ' + domain;
-
-                visitButton.addEventListener('click', function () {
-                    window.location.href = url;
-                });
-                cancelButton.addEventListener('click', function () {
-                    window.close(); //For new windows and tabs
-                    window.history.back(); //For pre-existing windows and tabs
-                });
-
-            }
-        };
-
-        var HmtNewLinkComponent = function (componentElement, urlService, window) {
-            function createRedirectUrl(toUrl) {
-                return window.location.href.split('?')[0]
-                        + '?url=' + encodeURIComponent(toUrl);
-            }
-
-            var queryParams = urlService.getQueryParams(window.document.location.search);
-            var url = queryParams['url'];
-            var urlInput = componentElement.querySelector('input.input-url');
-
-            if (url) {
-                urlInput.value = url;
-            }
-
-            componentElement.querySelector('form').addEventListener('submit', function (event) {
-                event.preventDefault();
-                window.location.href = createRedirectUrl(urlInput.value);
-            });
-        }
-    </script>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/hmt-url-service.js"></script>
+    <script src="/js/hmt-redirect-component.js"></script>
+    <script src="/js/hmt-new-link-component.js"></script>
 </head>
 <body>
 <div class="container">
