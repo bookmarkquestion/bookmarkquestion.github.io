@@ -56,7 +56,7 @@
                 visitButton.innerHTML = 'Visit ' + domain;
 
                 visitButton.addEventListener('click', function () {
-                    window.location.replace(url);
+                    window.location.href = url;
                 });
                 cancelButton.addEventListener('click', function () {
                     window.close(); //For new windows and tabs
@@ -75,37 +75,15 @@
             var queryParams = urlService.getQueryParams(window.document.location.search);
             var url = queryParams['url'];
             var urlInput = componentElement.querySelector('input.input-url');
-//            var linkDisplayElement = componentElement.querySelector('input.output-url');
 
-//            function render() {
-//                linkDisplayElement.value = createRedirectUrl(urlInput.value);
-//            }
-
-            function navigateToPreviewPage() {
-                window.location.replace(createRedirectUrl(urlInput.value));
+            if (url) {
+                urlInput.value = url;
             }
 
-//            if (url) {
-//                urlInput.value = url;
-//                render();
-//            }
-
-//            urlInput.addEventListener('keyup', render);
-
-//            //Handle mouse based pasting which is not caught by the keyup event
-//            urlInput.addEventListener('paste', function () {
-//                setTimeout(render, 1);
-//            });
-
-//            //Select all when the link output box is clicked to make copying easier
-//            linkDisplayElement.addEventListener('click', function () {
-//                this.select();
-//            });
-
-//            componentElement.querySelector('button.preview-button')
-//                    .addEventListener('click', navigateToPreviewPage);
-            componentElement.querySelector('form')
-                    .addEventListener('submit', navigateToPreviewPage);
+            componentElement.querySelector('form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                window.location.href = createRedirectUrl(urlInput.value);
+            });
         }
     </script>
 </head>
