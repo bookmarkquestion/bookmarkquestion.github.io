@@ -1,2 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .container{
+            max-width: 600px;
+        }
+        /*@media only screen and (min-width: 768px) {*/
+            /*.sameHeight1 .panel {*/
+                /*min-height: 18em;*/
+            /*}*/
+        /*}*/
+    </style>
+    <script>
+        var HmtUrlService = function () {
+            this.getQueryParams = function (url) {
+                var qs = url.split('+').join(' ');
 
-TEST
+                var params = {},
+                        tokens,
+                        re = /[?&]?([^=]+)=([^&]*)/g;
+
+                while (tokens = re.exec(qs)) {
+                    params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+                }
+
+                return params;
+            };
+
+            this.extractDomain = function (url) {
+                var domain;
+                //find & remove protocol (http, ftp, etc.) and get domain
+                if (url.indexOf("://") > -1) {
+                    domain = url.split('/')[2];
+                }
+                else {
+                    domain = url.split('/')[0];
+                }
+
+                //find & remove port number
+                domain = domain.split(':')[0];
+
+                return domain;
+            }
+        };
+        var HmtRedirectComponent = function (componentElement, urlService, window) {
+            componentElement.style.display = 'none';
+
+            var queryParams = urlService.getQueryParams(window.document.location.search);
+            var url = queryParams['url'];
+
+            var visitButton = componentElement.querySelector('.visit-button');
+            var cancelButton = componentElement.querySelector('.cancel-button');
+            var urlSpan = componentElement.querySelector('.urlSpan');
+
+            if (url) {
+                componentElement.style.display = 'initial';
+                var domain = urlService.extractDomain(url);
+                urlSpan.innerHTML = domain;
+                visitButton.innerHTML = 'Visit ' + domain;
+
+                visitButton.addEventListener('click', function () {
+                    window.location.replace(url);
+                });
+                cancelButton.addEventListener('click', function () {
+                    window.close(); //For new windows and tabs
+                    window.history.back(); //For pre-existing windows and tabs
+                });
+
+            }
+        };
+
+        var HmtNewLinkComponent = function (componentElement, window) {
+            function createRedirectUrl(toUrl) {
+                return window.location.href.split('?')[0]
+                        + '?url=' + encodeURIComponent(toUrl);
+            }
+
+            var urlInput = componentElement.querySelector('input.input-url');
+            var linkDisplayElement = componentElement.querySelector('input.output-url');
+
+            urlInput.addEventListener('keyup', function () {
+                linkDisplayElement.value = createRedirectUrl(urlInput.value);
+            });
+
+            //Handle mouse based pasting which is not caught by the keyup event
+            urlInput.addEventListener('paste', function () {
+                setTimeout(function () {
+                    linkDisplayElement.value = createRedirectUrl(urlInput.value);
+                }, 1);
+            });
+
+            //Select all when the link output box is clicked to make copying easier
+            linkDisplayElement.addEventListener('click', function () {
+                this.select();
+            });
+        }
+    </script>
+</head>
+<body>
+<br>
+
+<div class="container">
+    <div class="row">
+        <div id="redirectComponent" class="text-center col-sm-12" style="display: none">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>
+                        How many times has viewing
+                        <span class="urlSpan"></span>
+                        improved your life?
+                    </h2></div>
+                <div class="panel-body">
+                    <div class="form-group">
+
+                        <div>
+                            <button class="cancel-button btn btn-default btn-lg pull-left">Cancel</button>
+                            <button class="visit-button btn btn-primary btn-lg pull-right" autofocus></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row sameHeight1" id="createLinkComponent">
+        <!--<div class="col-sm-12 flex-extend-parent">-->
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-heading">How does HowManyTimes work?</div>-->
+                <!--<div class="panel-body">-->
+
+
+                    <!--&lt;!&ndash;<p>&ndash;&gt;-->
+                        <!--&lt;!&ndash;Use the form on the right to try it now.&ndash;&gt;-->
+                    <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Create a new question-asking redirect link</div>
+                <div class="panel-body">
+                    <p>
+                        Are the websites where you spend most of your time actually adding value to your life?
+                    </p>
+
+                    <p>
+                        Lets say you spend much of your time browsing /r/reallifedoodles and you have a
+                        bookmark to this page.
+                        You can replace this bookmark with a HowManyTimes bookmark to that same page to be reminded to
+                        question its value before visiting.
+                    </p>
+                    <div class="form-group">
+                        <label for="hmtNewLinkInput">Paste the URL here</label>
+                        <input type="url" class="form-control input-url" id="hmtNewLinkInput"
+                               aria-describedby="emailHelp"
+                               placeholder="https://something.com/something">
+                        <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                    </div>
+                    <div class="form-group">
+                        <label for="hmtNewLinkOutput">Bookmark this URL</label>
+                        <input type="text" readonly class="form-control output-url" id="hmtNewLinkOutput">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var htmUrlService = new HmtUrlService();
+    var hmtRedirectComponent = new HmtRedirectComponent(
+            document.getElementById('redirectComponent'),
+            htmUrlService,
+            window
+    );
+    var hmtNewLinkComponent = new HmtNewLinkComponent(
+            document.getElementById('createLinkComponent'),
+            window
+    );
+</script>
+</body>
+</html>
