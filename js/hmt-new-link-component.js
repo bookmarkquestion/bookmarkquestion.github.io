@@ -27,7 +27,6 @@ var HmtNewLinkComponent = function (componentElement, urlService, window) {
     messageInput.value = 'How many times has viewing {site} improved your life?';
     messageInput.placeholder = messageInput.value;
 
-
     showForm();
     //Read values from URL
     if (queryParams['url']) {

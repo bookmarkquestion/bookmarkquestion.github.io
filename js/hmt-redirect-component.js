@@ -3,8 +3,7 @@ var HmtRedirectComponent = function (componentElement, urlService, window) {
         return (unfilteredValue.replace('<', '').replace('>', ''));
     }
 
-    function renderMessage(message, url) {
-        var site = urlService.extractDomain(url);
+    function renderMessage(message, site) {
         messageSpan.innerHTML = filterInnerHtml(queryParams['message'].replace('{site}', site));
         visitButton.innerHTML = filterInnerHtml('Visit ' + site);
     }
@@ -18,9 +17,11 @@ var HmtRedirectComponent = function (componentElement, urlService, window) {
     }
 
     var url = queryParams['url'];
+    var site = urlService.extractDomain(url);
     var interval = queryParams['interval'];
     var message = queryParams['message'];
 
+    window.document.title = site; //Makes bookmarks look better
 
     var visitButton = componentElement.querySelector('button.visit-button');
     var cancelButton = componentElement.querySelector('button.cancel-button');
@@ -43,7 +44,7 @@ var HmtRedirectComponent = function (componentElement, urlService, window) {
         }
     }
 
-    renderMessage(message, url);
+    renderMessage(message, site);
 
     visitButton.addEventListener('click', function () {
         window.location.href = url;
