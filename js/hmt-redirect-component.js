@@ -9,7 +9,7 @@ var HmtRedirectComponent = function (componentElement, urlService, window) {
     var urlSpan = componentElement.querySelector('.urlSpan');
 
     if (url) {
-        componentElement.style.display = 'initial';
+        componentElement.style.display = 'block';
         var domain = urlService.extractDomain(url);
         urlSpan.innerHTML = domain;
         visitButton.innerHTML = 'Visit ' + domain;
