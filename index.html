@@ -13,14 +13,10 @@
     <div id="redirectComponent">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
-                <h2>
-                    How many times has viewing
-                    <span class="urlSpan"></span>
-                    improved your life?
-                </h2></div>
+                <h2><span class="message-span"></span></h2>
+            </div>
             <div class="panel-body">
                 <div class="form-group">
-
                     <div>
                         <button class="cancel-button btn btn-default btn-lg pull-left">Cancel</button>
                         <button class="visit-button btn btn-primary btn-lg pull-right" autofocus></button>
@@ -30,7 +26,10 @@
         </div>
     </div>
     <div id="createLinkComponent">
-        <div class="panel panel-default">
+        <div class="hide-container">
+            <a class="show-link" href="javascript:void(0)">Create or edit redirect link</a><br><br>
+        </div>
+        <div class="show-container panel panel-default">
             <div class="panel-heading">Create a new question-asking redirect link</div>
             <div class="panel-body">
                 <p>
@@ -48,19 +47,47 @@
                 <form>
                     <div class="form-group">
                         <label for="hmtNewLinkInput">Paste the URL here</label>
-
-                        <div class="input-group">
-                            <input type="url" class="form-control input-url" id="hmtNewLinkInput"
-                                   placeholder="https://something.com/something">                          <span
-                                class="input-group-btn">
-                            <button type="submit" class="preview-button btn btn-primary">Go</button>
-                          </span>
-                        </div>
+                        <input type="url" class="form-control url-input" id="hmtNewLinkInput"
+                               placeholder="https://something.com/something">
                     </div>
+                    <div class="form-group">
+                        <label for="hmtNewLinkInterval">Show message</label>
+                        <select class="form-control interval-select" name="interval" id="hmtNewLinkInterval">
+                            <option value="1">every time</option>
+                            <option value="2">every other time</option>
+                            <option value="3">every 3rd time</option>
+                            <option value="4">every 4th time</option>
+                            <option value="5">every 5th time</option>
+                            <option value="6">every 6th time</option>
+                            <option value="7">every 7th time</option>
+                            <option value="8">every 8th time</option>
+                            <option value="9">every 9th time</option>
+                            <option value="10">every 10th time</option>
+                            <option value="20">every 20th time</option>
+                            <option value="30">every 30th time</option>
+                            <option value="40">every 40th time</option>
+                            <option value="50">every 50th time</option>
+                            <option value="60">every 60th time</option>
+                            <option value="70">every 70th time</option>
+                            <option value="80">every 80th time</option>
+                            <option value="90">every 90th time</option>
+                            <option value="100">every 100th time</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="hmtNewLinkQuestion">Message</label>
+                        <!--<div class="input-group">-->
+                        <input type="text" class="form-control message-input" id="hmtNewLinkQuestion">
+                        <!--</div>-->
+                    </div>
+                    <button type="submit" class="preview-button btn btn-primary pull-right">Go to page to bookmark
+                    </button>
                 </form>
             </div>
         </div>
     </div>
+</div>
+<div class="navbar navbar-fixed-bottom text-center">
     This is an <a href="https://github.com/how-many-times/how-many-times.github.io">open source</a> tool created by <a
         href="http://rodmcnew.com">Rod Mcnew</a>. View the terms of use <a href="/terms.html">here</a>.
 </div>
