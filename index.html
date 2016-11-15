@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>HMT</title>
+    <title>BQ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/hmt-url-service.js"></script>
-    <script src="/js/hmt-redirect-component.js"></script>
-    <script src="/js/hmt-new-link-component.js"></script>
+    <script src="/js/bq-url-service.js"></script>
+    <script src="/js/bq-redirect-component.js"></script>
+    <script src="/js/bq-new-link-component.js"></script>
 </head>
 <body>
 <div class="container">
@@ -42,20 +42,20 @@
                 <p>
                     Lets say you spend much of your time browsing /r/reallifedoodles and you have a
                     bookmark to this page.
-                    You can replace this bookmark with a HowManyTimes redirect URL to that same page to be reminded
+                    You can replace this bookmark with a BookmarkQuestion redirect URL to that same page to be reminded
                     to
                     question its value before visiting.
                 </p>
 
                 <form>
                     <div class="form-group">
-                        <label for="hmtNewLinkInput">Paste the URL here</label>
-                        <input type="url" class="form-control url-input" id="hmtNewLinkInput"
+                        <label for="bqNewLinkInput">Paste the URL here</label>
+                        <input type="url" class="form-control url-input" id="bqNewLinkInput"
                                placeholder="https://something.com/something">
                     </div>
                     <div class="form-group">
-                        <label for="hmtNewLinkInterval">Show message</label>
-                        <select class="form-control interval-select" name="interval" id="hmtNewLinkInterval">
+                        <label for="bqNewLinkInterval">Show message</label>
+                        <select class="form-control interval-select" name="interval" id="bqNewLinkInterval">
                             <option value="1">every time</option>
                             <option value="2">every other time</option>
                             <option value="3">every 3rd time</option>
@@ -78,9 +78,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="hmtNewLinkQuestion">Message</label>
+                        <label for="bqNewLinkQuestion">Message</label>
                         <!--<div class="input-group">-->
-                        <input type="text" class="form-control message-input" id="hmtNewLinkQuestion">
+                        <input type="text" class="form-control message-input" id="bqNewLinkQuestion">
                         <!--</div>-->
                     </div>
                     <button type="submit" class="preview-button btn btn-primary pull-right">Go to page to bookmark
@@ -96,12 +96,12 @@
 </div>
 <script>
     var htmUrlService = new HmtUrlService();
-    var hmtRedirectComponent = new HmtRedirectComponent(
+    var bqRedirectComponent = new HmtRedirectComponent(
             document.getElementById('redirectComponent'),
             htmUrlService,
             window
     );
-    var hmtNewLinkComponent = new HmtNewLinkComponent(
+    var bqNewLinkComponent = new HmtNewLinkComponent(
             document.getElementById('createLinkComponent'),
             htmUrlService,
             window
