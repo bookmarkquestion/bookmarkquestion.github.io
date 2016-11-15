@@ -1,6 +1,9 @@
 var HmtUrlService = function () {
-    this.getQueryParams = function (url) {
-        var qs = url.split('+').join(' ');
+    this.getHashParams = function (hash) {
+
+        var qs = hash.split('+').join(' ');
+
+        qs = qs.replace('#?', '');
 
         var params = {},
             tokens,

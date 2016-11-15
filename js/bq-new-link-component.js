@@ -1,7 +1,7 @@
 var HmtNewLinkComponent = function (componentElement, urlService, window) {
     function createRedirectUrl(toUrl, interval, message) {
-        return window.location.href.split('?')[0]
-            + '?url=' + encodeURIComponent(toUrl)
+        return window.location.href.split('#')[0]
+            + '#?url=' + encodeURIComponent(toUrl)
             + '&interval=' + encodeURIComponent(interval)
             + '&message=' + encodeURIComponent(message);
     }
@@ -16,7 +16,7 @@ var HmtNewLinkComponent = function (componentElement, urlService, window) {
         componentElement.querySelector('.show-container').style.display = 'block';
     }
 
-    var queryParams = urlService.getQueryParams(window.document.location.search);
+    var queryParams = urlService.getHashParams(window.document.location.hash);
     var urlInput = componentElement.querySelector('input.url-input');
     var intervalSelect = componentElement.querySelector('select.interval-select');
     var messageInput = componentElement.querySelector('input.message-input');
@@ -58,5 +58,6 @@ var HmtNewLinkComponent = function (componentElement, urlService, window) {
             intervalSelect.value,
             messageInput.value
         );
+        window.location.reload();
     });
 };

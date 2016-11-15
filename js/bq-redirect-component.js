@@ -10,7 +10,7 @@ var HmtRedirectComponent = function (componentElement, urlService, window) {
 
     componentElement.style.display = 'none';
 
-    var queryParams = urlService.getQueryParams(window.document.location.search);
+    var queryParams = urlService.getHashParams(window.document.location.hash);
 
     if (!queryParams['url'] || !queryParams['interval'] || !queryParams['message']) {
         return;
