@@ -5,4 +5,4 @@ You can replace this bookmark with a BookmarkQuestion redirect URL to that same 
 to question its value before visiting.
 
 #Technical notes
-- This is an experiment in creating a maintainable single page app without using any javascript libraries or frameworks. Separation of concerns has not been fully achieved so I'd still recommend using frameworks. 
+- This was an experiment in creating a maintainable single page app without using any javascript libraries or frameworks. Separation of concerns has not been fully achieved so I'd still recommend using frameworks. 
