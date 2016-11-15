@@ -21,7 +21,7 @@ var HmtRedirectComponent = function (componentElement, urlService, window) {
     var interval = queryParams['interval'];
     var message = queryParams['message'];
 
-    window.document.title = site + ' - BQ'; //Makes bookmarks look better
+    window.document.title = site; //Makes bookmarks look better
 
     var visitButton = componentElement.querySelector('button.visit-button');
     var cancelButton = componentElement.querySelector('button.cancel-button');
